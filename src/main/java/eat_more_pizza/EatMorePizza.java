@@ -1,20 +1,23 @@
 package eat_more_pizza;
 
 abstract class PizzaPieD {
-  abstract PizzaPieD rem(RemV roFn);
-
-  abstract PizzaPieD subst(SubstV soFn);
+  //  abstract PizzaPieD rem(PizzaPieVistorInterface pv);
+//
+//  abstract PizzaPieD subst(PizzaPieVistorInterface pv);
+  abstract PizzaPieD accept(PizzaPieVistorInterface ask);
 }
 
 class Bottom extends PizzaPieD {
-
-  PizzaPieD rem(RemV roFn) {
-    return roFn.forBottom();
+  PizzaPieD accept(PizzaPieVistorInterface ask) {
+    return ask.forBottom();
   }
 
-  PizzaPieD subst(SubstV soFn) {
-    return soFn.forBottom();
-  }
+//  PizzaPieD rem(PizzaPieVistorInterface fn) {
+//    return fn.forBottom();
+//  }
+//  PizzaPieD subst(PizzaPieVistorInterface fn) {
+//    return fn.forBottom();
+//  }
 }
 
 class Topping extends PizzaPieD {
@@ -26,13 +29,17 @@ class Topping extends PizzaPieD {
     r = _r;
   }
 
-  PizzaPieD rem(RemV roFn) {
-    return roFn.forTopping(t, r);
+  PizzaPieD accept(PizzaPieVistorInterface ask) {
+    return ask.forTopping(t, r);
   }
 
-  PizzaPieD subst(SubstV soFn) {
-    return soFn.forTopping(t, r);
-  }
+//  PizzaPieD rem(PizzaPieVistorInterface fn) {
+//    return fn.forTopping(t, r);
+//  }
+//
+//  PizzaPieD subst(PizzaPieVistorInterface fn) {
+//    return fn.forTopping(t, r);
+//  }
 }
 
 public class EatMorePizza {
@@ -46,6 +53,10 @@ public class EatMorePizza {
         )
       );
 
-    p.subst(new SubstV(new Tuna(), new Anchovy()));
+    p.accept(new SubstV(new Tuna(), new Anchovy()));
+
+    p.accept(new LimtSubstV(1, new Tuna(), new Anchovy()));
+
+    p.accept(new RemV(new Tuna()));
   }
 }

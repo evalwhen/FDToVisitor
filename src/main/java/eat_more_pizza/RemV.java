@@ -1,21 +1,21 @@
 package eat_more_pizza;
 
-class RemV {
+class RemV implements PizzaPieVistorInterface {
   private Object o;
 
   RemV(Object _o) {
     o = _o;
   }
 
-  PizzaPieD forBottom() {
+  public PizzaPieD forBottom() {
     return new Bottom();
   }
 
-  PizzaPieD forTopping(Object t, PizzaPieD p) {
+  public PizzaPieD forTopping(Object t, PizzaPieD p) {
     if (o.equals(t)) {
-      return p.rem(this);
+      return p.accept(this);
     } else {
-      return new Topping(t, p.rem(this));
+      return new Topping(t, p.accept(this));
     }
   }
 }
