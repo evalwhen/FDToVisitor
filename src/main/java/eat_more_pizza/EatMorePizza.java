@@ -1,22 +1,19 @@
 package eat_more_pizza;
 
 abstract class PizzaPieD {
-  RemV roFn = new RemV();
-  SubstV soFn = new SubstV();
+  abstract PizzaPieD rem(RemV roFn);
 
-  abstract PizzaPieD Rem(Object o);
-
-  abstract PizzaPieD subst(Object n, Object o);
+  abstract PizzaPieD subst(SubstV soFn);
 }
 
 class Bottom extends PizzaPieD {
 
-  PizzaPieD Rem(Object o) {
-    return roFn.forBottom(o);
+  PizzaPieD rem(RemV roFn) {
+    return roFn.forBottom();
   }
 
-  PizzaPieD subst(Object n, Object o) {
-    return soFn.forBottom(n, o);
+  PizzaPieD subst(SubstV soFn) {
+    return soFn.forBottom();
   }
 }
 
@@ -29,12 +26,12 @@ class Topping extends PizzaPieD {
     r = _r;
   }
 
-  PizzaPieD Rem(Object o) {
-    return roFn.forTopping(t, r, o);
+  PizzaPieD rem(RemV roFn) {
+    return roFn.forTopping(t, r);
   }
 
-  PizzaPieD subst(Object n, Object o) {
-    return soFn.forTopping(t, r, n, o);
+  PizzaPieD subst(SubstV soFn) {
+    return soFn.forTopping(t, r);
   }
 }
 
@@ -49,6 +46,6 @@ public class EatMorePizza {
         )
       );
 
-    p.subst(new Tuna(), new Anchovy());
+    p.subst(new SubstV(new Tuna(), new Anchovy()));
   }
 }

@@ -1,15 +1,23 @@
 package eat_more_pizza;
 
 class SubstV {
-  PizzaPieD forBottom(Object n, Object o) {
+  private Object n;
+  private Object o;
+
+  SubstV(Object _n, Object _o) {
+    n = _n;
+    o = _o;
+  }
+
+  PizzaPieD forBottom() {
     return new Bottom();
   }
 
-  PizzaPieD forTopping(Object t, PizzaPieD r, Object n, Object o) {
+  PizzaPieD forTopping(Object t, PizzaPieD r) {
     if (o.equals(t)) {
-      return r.subst(n, o);
+      return r.subst(this);
     } else {
-      return new Topping(t, r.subst(n, o));
+      return new Topping(t, r.subst(this));
     }
   }
 }
