@@ -5,34 +5,58 @@ package eat_shishd_vistor;
 // datatype.
 
 class OnlyOnionsV {
-    boolean forSkewer() {
-        return true; }
+  boolean forSkewer() {
+    return true; }
 
-    boolean forOnion(ShishD s) {
-        return s.onlyOnions(); }
+  // s, which is the rest of the shish.
+  boolean forOnion(ShishD s) {
+    // 是否 onion 下面的 shish 对一个 onion 爱好者来说还是可以吃的
+    return s.onlyOnions(); }
 
-    boolean forLamb(ShishD s) {
-        return false; }
+  boolean forLamb(ShishD s) {
+    return false; }
 
-    boolean forTomato(ShishD s) {
-        return false; }
+  boolean forTomato(ShishD s) {
+    return false; }
 }
 
+class IsVegetarianV {
+  boolean forSkewer() {
+    return true;
+  }
+
+  boolean forOnion(ShishD s) {
+    return s.isVegetarian();
+  }
+
+  boolean forLamb(ShishD s) {
+    return false;
+  }
+
+  boolean forTomato(ShishD s) {
+    return s.isVegetarian();
+  }
+}
+
+//  For us, a protocol is an agreement on
+//  how classes that specify a datatype and its variants interact
+//  with classes that realize functions on that datatype
 abstract class ShishD {
   OnlyOnionsV ooFn = new OnlyOnionsV();
+  IsVegetarianV ivFn = new IsVegetarianV();
 
   abstract boolean onlyOnions();
   abstract boolean isVegetarian();
 }
 
-
-
 class Skewer extends ShishD {
   boolean onlyOnions() {
-    return true;
+//    return true;
+    return ooFn.forSkewer();
   }
   boolean isVegetarian() {
-    return true;
+//    return true;
+    return ivFn.forSkewer();
   }
 
   @Override
@@ -52,10 +76,10 @@ class Onion extends ShishD {
   }
 
   boolean isVegetarian() {
-    return s.isVegetarian();
+//    return s.isVegetarian();
+    // 向 ivFn 请求自己是否是素的。
+    return ivFn.forOnion(s);
   }
-
-
 
   @Override
   public String toString() {
@@ -74,7 +98,8 @@ class Lamb extends ShishD {
   }
 
   boolean isVegetarian() {
-    return false;
+//    return false;
+    return ivFn.forLamb(s);
   }
 
   @Override
@@ -90,11 +115,12 @@ class Tomato extends ShishD {
   }
   boolean onlyOnions() {
 //    return false;
-    return ooFn.forOnion(s);
+    return ooFn.forTomato(s);
   }
 
   boolean isVegetarian() {
-    return s.isVegetarian();
+//    return s.isVegetarian();
+    return ivFn.forTomato(s);
   }
   @Override
   public String toString() {
