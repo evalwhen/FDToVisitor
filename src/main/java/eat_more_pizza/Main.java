@@ -42,7 +42,7 @@ class Topping extends PizzaPieD {
 //  }
 }
 
-public class EatMorePizza {
+public class Main {
   public static void main(String[] args) {
     PizzaPieD p =
       new Topping(
