@@ -7,15 +7,15 @@ class RemV implements PizzaPieVistorInterface {
     o = _o;
   }
 
-  public PizzaPieD forBottom() {
+  public Object forBottom() {
     return new Bottom();
   }
 
-  public PizzaPieD forTopping(Object t, PizzaPieD p) {
+  public Object forTopping(Object t, PizzaPieD p) {
     if (o.equals(t)) {
       return p.accept(this);
     } else {
-      return new Topping(t, p.accept(this));
+      return new Topping(t, (PizzaPieD) p.accept(this));
     }
   }
 }

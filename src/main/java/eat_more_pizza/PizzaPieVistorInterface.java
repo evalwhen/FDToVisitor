@@ -1,7 +1,7 @@
 package eat_more_pizza;
 
 interface PizzaPieVistorInterface {
-  PizzaPieD forBottom();
+  Object forBottom();
 
-  PizzaPieD forTopping(Object t, PizzaPieD r);
+  Object forTopping(Object t, PizzaPieD r);
 }

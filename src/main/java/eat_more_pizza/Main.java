@@ -4,42 +4,37 @@ abstract class PizzaPieD {
   //  abstract PizzaPieD rem(PizzaPieVistorInterface pv);
 //
 //  abstract PizzaPieD subst(PizzaPieVistorInterface pv);
-  abstract PizzaPieD accept(PizzaPieVistorInterface ask);
+  abstract Object accept(PizzaPieVistorInterface ask);
+
+  abstract Object acceptM(MutationPieVistorInterface ask);
 }
 
 class Bottom extends PizzaPieD {
-  PizzaPieD accept(PizzaPieVistorInterface ask) {
+  Object accept(PizzaPieVistorInterface ask) {
     return ask.forBottom();
   }
 
-//  PizzaPieD rem(PizzaPieVistorInterface fn) {
-//    return fn.forBottom();
-//  }
-//  PizzaPieD subst(PizzaPieVistorInterface fn) {
-//    return fn.forBottom();
-//  }
+  Object acceptM(MutationPieVistorInterface ask) {
+    return ask.forBottom(this);
+  }
 }
 
 class Topping extends PizzaPieD {
-  private Object t;
-  private PizzaPieD r;
+  Object t;
+  PizzaPieD r;
 
   Topping(Object _t, PizzaPieD _r) {
     t = _t;
     r = _r;
   }
 
-  PizzaPieD accept(PizzaPieVistorInterface ask) {
+  Object accept(PizzaPieVistorInterface ask) {
     return ask.forTopping(t, r);
   }
 
-//  PizzaPieD rem(PizzaPieVistorInterface fn) {
-//    return fn.forTopping(t, r);
-//  }
-//
-//  PizzaPieD subst(PizzaPieVistorInterface fn) {
-//    return fn.forTopping(t, r);
-//  }
+  Object acceptM(MutationPieVistorInterface ask) {
+    return ask.forTopping(this);
+  }
 }
 
 public class Main {
